@@ -69,6 +69,11 @@ Both services start together. To check that they are running, open:
 | `npm start` | Run the compiled services |
 | `npm run typecheck` | Type-check both services |
 | `npm run db:init` | Create the SQLite databases and tables |
+| `npm test` | Run all unit + integration tests (Jest, ts-jest, Supertest) |
+| `npm run test:unit` | Run unit tests only |
+| `npm run test:integration` | Run integration tests only (in-memory SQLite) |
+
+Run a single service's tests with `npm test -w patient-service` or `npm test -w notification-service`.
 
 ### Configuration
 
