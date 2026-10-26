@@ -68,6 +68,8 @@ Both services start together. To check that they are running, open:
 | `npm run build` | Compile both services to `dist/` |
 | `npm start` | Run the compiled services |
 | `npm run typecheck` | Type-check both services |
+| `npm run lint` | Lint all TypeScript with ESLint |
+| `npm run lint:fix` | Lint and auto-fix |
 | `npm run db:init` | Create the SQLite databases and tables |
 | `npm test` | Run all unit + integration tests (Jest, ts-jest, Supertest) |
 | `npm run test:unit` | Run unit tests only |
@@ -133,6 +135,17 @@ All errors use the same shape:
 ```json
 { "error": { "code": "VALIDATION_ERROR", "message": "Request validation failed", "details": [] } }
 ```
+
+## CI
+
+[.github/workflows/ci.yml](.github/workflows/ci.yml) runs on every pull request, on pushes to `main`, and manually from the Actions tab. Steps run in this order:
+
+1. Install dependencies (`npm ci`)
+2. Lint
+3. Type check
+4. Unit tests
+5. Integration tests
+6. Build
 
 ## Intentional Compliance Violations
 
