@@ -10,6 +10,9 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "jest",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration",
     "db:init": "tsx src/scripts/initDb.ts"
   },
   "dependencies": {

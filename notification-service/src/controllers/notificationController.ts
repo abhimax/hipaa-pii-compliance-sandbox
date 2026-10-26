@@ -3,6 +3,7 @@ import { DeliveryFailedError } from '../errors/AppError.js';
 import type { NotifyResponse } from '../models/contact.js';
 import type { ContactRepository } from '../repositories/contactRepository.js';
 import type { MockSmsGateway } from '../services/mockSmsGateway.js';
+import { buildReminderMessage } from '../utils/messageFormatter.js';
 import { notifySchema, parseOrThrow } from '../validation/notifySchema.js';
 
 export class NotificationController {
@@ -20,9 +21,7 @@ export class NotificationController {
 
     const contactId = this.repository.create({ full_name, email, phone_number, home_address });
 
-    const body =
-      input.message ??
-      `Hi ${full_name}, this is a reminder of your appointment on ${new Date(input.appointment_at).toLocaleString()}.`;
+    const body = input.message ?? buildReminderMessage(full_name, input.appointment_at);
 
     try {
       const result = await this.gateway.send(phone_number, body, {
