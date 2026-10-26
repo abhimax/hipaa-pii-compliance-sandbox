@@ -1,0 +1,27 @@
+{
+  "name": "hipaa-pii-compliance-sandbox",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local TypeScript microservices sandbox for testing a HIPAA (PHI) / PII compliance check agent.",
+  "type": "module",
+  "workspaces": [
+    "patient-service",
+    "notification-service"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n patient,notify -c cyan,magenta \"npm run dev -w patient-service\" \"npm run dev -w notification-service\"",
+    "build": "npm run build --workspaces",
+    "start": "concurrently -n patient,notify -c cyan,magenta \"npm run start -w patient-service\" \"npm run start -w notification-service\"",
+    "typecheck": "npm run typecheck --workspaces",
+    "db:init": "npm run db:init --workspaces"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "concurrently": "^9.2.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}
