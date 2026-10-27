@@ -21,7 +21,8 @@
     "test": "npm run test --workspaces",
     "test:unit": "npm run test:unit --workspaces",
     "test:integration": "npm run test:integration --workspaces",
-    "db:init": "npm run db:init --workspaces"
+    "db:init": "npm run db:init --workspaces",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
@@ -31,7 +32,9 @@
     "concurrently": "^9.2.0",
     "eslint": "^9.39.5",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
     "jest": "^30.5.2",
+    "lint-staged": "^16.4.0",
     "supertest": "^7.3.1",
     "ts-jest": "^29.4.15",
     "tsx": "^4.20.0",
