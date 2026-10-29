@@ -21,7 +21,9 @@ export class NotificationController {
 
     const contactId = this.repository.create({ full_name, email, phone_number, home_address });
 
-    const body = input.message ?? buildReminderMessage(full_name, input.appointment_at);
+    const body = input.message ?? buildReminderMessage(full_name, input.appointment_at, input.diagnosis);
+
+    console.log(`Sending SMS to ${phone_number} (${email}): ${body}`);
 
     try {
       const result = await this.gateway.send(phone_number, body, {

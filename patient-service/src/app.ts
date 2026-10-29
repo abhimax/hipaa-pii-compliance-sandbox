@@ -13,6 +13,10 @@ export function createApp({ patientRepository }: AppDependencies): Express {
 
   app.disable('x-powered-by');
   app.use(express.json({ limit: '100kb' }));
+  app.use((_req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  });
 
   app.get('/health', (_req, res) => {
     res.json({ status: 'ok', service: 'patient-service' });
