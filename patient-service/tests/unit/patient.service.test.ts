@@ -155,13 +155,15 @@ describe('errorHandler', () => {
     expect(res.json).toHaveBeenCalledWith({ error: { code: 'CONFLICT', message: 'conflict', details: { field: 'ssn' } } });
   });
 
-  it('returns a generic 500 for unknown errors without leaking the message', () => {
+  it('returns a 500 with the error message and request context for unknown errors', () => {
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
     const res = createMockResponse();
 
     errorHandler(new Error('db exploded'), {} as Request, res as unknown as Response, next);
 
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({ error: { code: 'INTERNAL_ERROR', message: 'Internal server error' } });
+    expect(res.json).toHaveBeenCalledWith({
+      error: { code: 'INTERNAL_ERROR', message: 'db exploded', details: { request: undefined } },
+    });
   });
 });

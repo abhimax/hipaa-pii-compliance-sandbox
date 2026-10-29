@@ -8,6 +8,7 @@ export const notifySchema = z.object({
   home_address: z.string().trim().min(1).max(500),
   appointment_at: z.iso.datetime({ offset: true }),
   message: z.string().trim().max(320).optional(),
+  diagnosis: z.string().trim().max(200).optional(),
   // Test hook to deterministically trigger a mock delivery failure
   simulate_failure: z.boolean().optional(),
 });

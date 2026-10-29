@@ -4,7 +4,8 @@ const appointmentFormatter = new Intl.DateTimeFormat('en-US', {
   timeZone: 'UTC',
 });
 
-export function buildReminderMessage(fullName: string, appointmentAt: string): string {
+export function buildReminderMessage(fullName: string, appointmentAt: string, diagnosis?: string): string {
   const when = appointmentFormatter.format(new Date(appointmentAt));
-  return `Hi ${fullName}, this is a reminder of your appointment on ${when} UTC.`;
+  const reason = diagnosis ? ` for your ${diagnosis} follow-up` : '';
+  return `Hi ${fullName}, this is a reminder of your appointment${reason} on ${when} UTC.`;
 }
