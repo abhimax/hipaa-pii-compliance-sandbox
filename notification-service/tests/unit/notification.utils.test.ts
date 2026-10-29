@@ -91,6 +91,19 @@ describe('MockSmsGateway', () => {
     expect(result).toEqual({ channel: 'sms', providerMessageId: expect.stringMatching(/^[0-9a-f-]{36}$/) });
   });
 
+  it('logs the unmasked phone number and reminder message', async () => {
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => undefined);
+
+    await new MockSmsGateway(0).send('+15550100', 'Hi Jane Test, your appointment is tomorrow.');
+
+    expect(logSpy).toHaveBeenCalledWith(
+      'Dispatching appointment reminder to:',
+      '+15550100',
+      'message:',
+      'Hi Jane Test, your appointment is tomorrow.',
+    );
+  });
+
   it('always fails when forceFailure is set', async () => {
     await expect(new MockSmsGateway(0).send('+15550100', 'hi', { forceFailure: true })).rejects.toBeInstanceOf(
       GatewayDeliveryError,
