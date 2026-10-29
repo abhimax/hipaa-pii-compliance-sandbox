@@ -136,6 +136,15 @@ All errors use the same shape:
 { "error": { "code": "VALIDATION_ERROR", "message": "Request validation failed", "details": [] } }
 ```
 
+## Pre-commit Hooks
+
+[Husky](https://typicode.github.io/husky/) + [lint-staged](https://github.com/lint-staged/lint-staged) run on every `git commit` (installed automatically by `npm install` via the `prepare` script). For staged files only:
+
+- `*.ts` / `*.js`: `eslint --fix`
+- `*.ts`: type-check (`tsc --noEmit`) and run related Jest tests for each affected service
+
+Configuration lives in [lint-staged.config.js](lint-staged.config.js). Bypass in an emergency with `git commit --no-verify`.
+
 ## CI
 
 [.github/workflows/ci.yml](.github/workflows/ci.yml) runs on every pull request, on pushes to `main`, and manually from the Actions tab. Steps run in this order:
